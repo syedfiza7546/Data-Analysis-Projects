@@ -13,3 +13,11 @@ Using total popularity scores, determine the top 5 most popular genres.
 Sort artists using SQL queries based on their cumulative popularity scores and total number of songs.
 Examine the relationship between an artist's average song popularity and the quantity of songs they release.
 
+**4. The goal of the clustering analysis and audio features** : To investigate how listener preferences are influenced by audio features.
+SQL queries: Cluster songs based on similar audio features such as danceability, energy, and instrumentalness.
+
+**Determine which clusters scored the highest on average for popularity.
+5. Time-Based Analysis Goal:** Identify patterns and seasonal trends in the popularity of music.
+
+Using SQL queries to examine the quantity of music releases and their level of popularity by year and month.
+To find patterns in popularity over time, use a rolling average.
