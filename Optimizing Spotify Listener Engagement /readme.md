@@ -14,6 +14,7 @@ Sort artists using SQL queries based on their cumulative popularity scores and t
 Examine the relationship between an artist's average song popularity and the quantity of songs they release.
 
 **4. The goal of the clustering analysis and audio features** : To investigate how listener preferences are influenced by audio features.
+
 SQL queries: Cluster songs based on similar audio features such as danceability, energy, and instrumentalness.
 
 _**Determine which clusters scored the highest on average for popularity.**_
