@@ -25,7 +25,7 @@ Identify and fix any duplicate, inconsistent, or missing values to ensure the da
 
   - _SQL queries:_  
     - Cluster songs based on similar audio features such as danceability, energy, and instrumentalness.  
-    - _**Determine which clusters scored the highest on average for popularity.**_
+    - **Determine which clusters scored the highest on average for popularity.**
 
 - **5. Time-Based Analysis Goal:**  
   - Identify patterns and seasonal trends in the popularity of music.
@@ -33,8 +33,7 @@ Identify and fix any duplicate, inconsistent, or missing values to ensure the da
   - Using SQL queries to examine the quantity of music releases and their level of popularity by year and month.  
   - To find patterns in popularity over time, use a rolling average.
 
-- **6. Analysis of Playlists and User Behaviour**  
-  - **Goal:**  
+- **6. Analysis of Playlists and User Behaviour Goal:**  
     - Determine music preferences by analysing user-generated playlists.  
     - Find the songs that are added and removed from playlists the most frequently using SQL queries.  
     - Determine which genres are most frequently seen in user playlists.
