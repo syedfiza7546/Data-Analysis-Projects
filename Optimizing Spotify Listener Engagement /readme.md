@@ -22,3 +22,11 @@ _**Determine which clusters scored the highest on average for popularity.**_
 
 Using SQL queries to examine the quantity of music releases and their level of popularity by year and month.
 To find patterns in popularity over time, use a rolling average.
+
+
+**6. Analysis of Playlists and User Behaviour**
+**Goal:** Determine music preferences by analysing user-generated playlists.
+Find the songs that are added and removed from playlists the most frequently using SQL queries.
+Determine which genres are most frequently seen in user playlists.
+
+
