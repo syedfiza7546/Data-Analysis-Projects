@@ -1,6 +1,9 @@
-Using the Spotify dataset to undertake a thorough analysis of song characteristics, artist performance, listener engagement, and trends in order to suggest practical ideas for enhancing Spotify's recommendation and user engagement systems.
+Spotify Dataset Analysis
+Objective:
+To undertake a thorough analysis of song characteristics, artist performance, listener engagement, and trends in order to suggest practical ideas for enhancing Spotify's recommendation and user engagement systems.
 
-**Goal:** Find and fix any duplicate, inconsistent, or missing values to make sure the dataset is prepared for analysis.
+Goal:
+Identify and fix any duplicate, inconsistent, or missing values to ensure the dataset is prepared for analysis.
 
 **1. SQL queries:** Identify null or missing values in every column.
 Using distinct identifiers such as track_id, eliminate duplicate entries.
