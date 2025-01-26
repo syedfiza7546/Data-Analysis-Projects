@@ -4,7 +4,7 @@ This project analyzes and cleans the "Salaries.csv" dataset using Python. It foc
 
 The dataset is first loaded into a Pandas DataFrame. Any columns with mixed types are flagged, and missing values are counted to assess data completeness. Irrelevant columns like `Id`, `Notes`, `Agency`, and `Status` are dropped to make the data more manageable. Finally, the `.describe()` function provides key statistics such as mean, standard deviation, and count for each column, offering an overview of the dataset.
 
-The project is a great introduction to data cleaning and basic analysis using Pandas. It helps ensure the dataset is ready for further analysis or visualization.
+It helps ensure the dataset is ready for further analysis or visualization.
     
    #### Code Snippet:
 
