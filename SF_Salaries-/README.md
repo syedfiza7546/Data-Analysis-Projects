@@ -1,11 +1,10 @@
 # File: San_Fran_sal.ipynb
 
- - **Description**: This Python project loads, cleans, and performs data analysis on the `Salaries.csv` dataset. The project includes handling missing values, removing unnecessary columns, and generating summary statistics to gain insights from the data. The dataset is cleaned to ensure that it only contains relevant information, and the code produces a comprehensive analysis of the data, including a description of each column and count of missing values.
-  - **Key Skills**: 
-    - **Data Loading and Cleaning**: Uses `pandas` to load and clean the data, handling missing values and irrelevant columns.
-    - **Handling Missing Data**: Identifies missing values and counts them using `data1.isnull()`.
-    - **Data Analysis with Pandas**: Descriptive statistics are generated using `data1.describe()` for deeper insights into the dataset.
-    - **Removing Irrelevant Columns**: Unnecessary columns like `Id`, `Notes`, `Agency`, and `Status` are dropped to simplify analysis and focus on the essential data.
+This project analyzes and cleans the "Salaries.csv" dataset using Python. It focuses on loading the data, handling missing values, removing unnecessary columns, and generating summary statistics for insights.
+
+The dataset is first loaded into a Pandas DataFrame. Any columns with mixed types are flagged, and missing values are counted to assess data completeness. Irrelevant columns like `Id`, `Notes`, `Agency`, and `Status` are dropped to make the data more manageable. Finally, the `.describe()` function provides key statistics such as mean, standard deviation, and count for each column, offering an overview of the dataset.
+
+The project is a great introduction to data cleaning and basic analysis using Pandas. It helps ensure the dataset is ready for further analysis or visualization.
     
    #### Code Snippet:
 
