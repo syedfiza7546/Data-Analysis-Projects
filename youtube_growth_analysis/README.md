@@ -1,6 +1,10 @@
 # YouTube Growth Analysis
 
-This project provides a detailed analysis of a YouTube channel's growth over time. The analysis includes key metrics such as subscriber count, total views, income streams, video performance, and expenses.
+This project analyzes the growth of a YouTube channel using SQL and Python. It covers key metrics like subscriber and view growth, income from various sources, video performance, expenses, and the correlation between upload frequency and growth. 
+
+The analysis uses four main tables: `youtube_metrics` (for subscriber and view data), `income_streams` (for income sources), `video_performance` (for video metrics), and `expenses` (for monthly costs). 
+
+After setting up the database and running SQL queries, Python scripts visualize the results using matplotlib, providing clear insights into the channel's performance and profitability.
 
 ## Project Overview
 
