@@ -1,6 +1,6 @@
 # Tableau Project SQL Queries
 
-This repository contains a bunch of SQL queries I used for a Tableau project on COVID-19 data. The queries help pull out data to get some key insights into the number of COVID-19 cases, deaths, vaccinations, and population stats from the PortfolioProject database.
+This repository contains a bunch of SQL queries I used for a Tableau project on COVID-19 data. The queries help pull out data to get some key insights into the number of COVID-19 cases, deaths, vaccinations, and population stats from the database.
 
 ## Queries Overview
 
