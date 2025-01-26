@@ -1,6 +1,12 @@
 # Chocolate Sales Analysis Dashboard
 
-This Power BI project visualizes chocolate sales data across different regions and salespersons, providing insights into sales trends, salesperson performance, and future forecasts.
+I created a Power BI dashboard to analyze chocolate sales data and get a better understanding of how sales are performing across different regions and salespeople. I started by importing the data and cleaning it up, fixing any blank entries and making sure everything was in a good format for analysis. I used Power Query to transform the data and prepare it for the next steps.
+
+Then, I worked on setting up the data model. I built a simple structure that links the relevant tables together, so everything makes sense when analyzing it. This way, I could make sure the data was consistent and connected properly.
+
+For the visuals, I created a bunch of different charts to show the sales by region, by salesperson, and over time. I added some interactive filters so users could easily select the data they wanted to see. I also used DAX to calculate important numbers like total sales, how sales are spread across regions, and the performance of each salesperson. One of the cool things I did was add forecasting, so you can see predicted future sales based on past trends.
+
+The dashboard makes it easy to see which regions and salespeople are performing well and shows the trends in sales over time. It also helps in predicting future sales, which can be useful for planning and making decisions. Overall, it’s a simple tool that helps understand the sales data better and can help with decision-making for marketing and strategy.
 
 ## Project Overview
 This dashboard includes key elements like data import, cleaning, model building, visualizations, and forecasting:
