@@ -132,15 +132,20 @@ Promotions should highlight these high-performing products.
 
 # 5. Recommendations Based on Analysis
 Based on the insights from the analysis, here are some actionable recommendations:
+
 1️⃣ Target Female Consumers
 Since women spend more than men, businesses should introduce exclusive deals and personalized offers for female shoppers.
+
 2️⃣ Focus on Age Group 26-35
 This demographic spends the most, so special discounts and bundled offers can boost sales.
+
 3️⃣ State-Level Marketing Strategy
 Uttar Pradesh, Maharashtra, and Karnataka drive most sales.
 Localized advertising and regional discounts can further increase revenue.
+
 4️⃣ Promote High-Spending Occupations
 Since professionals in IT, Healthcare, and Aviation industries spend the most, targeted ads on LinkedIn and industry-specific platforms can be beneficial.
+
 5️⃣ Optimize Product Inventory
 Stock more Food, Clothing, and Electronics items as they generate the highest revenue.
 Plan inventory based on historical sales data to maximize profits.
