@@ -1,4 +1,4 @@
-1. Process and Objective
+# 1. Process and Objective
 Objective:
 The project aims to analyze Diwali sales data to uncover key consumer trends, demographic insights, and purchasing behaviors.
 
@@ -12,7 +12,7 @@ Trend Analysis → Analyze spending habits based on demographics.
 
 Key Business Insights → Provide recommendations for targeted marketing.
 
-2. About the Dataset
+# 2. About the Dataset
 
 Total Records: 11,251 rows, 15 columns.
 
@@ -26,7 +26,7 @@ Converted the Amount column from float to int for consistency.
 
 Renamed columns (Marital_Status → Shaadi).
 
-3. Line of Thinking & Hypothesis
+# 3. Line of Thinking & Hypothesis
 Hypothesis:
 Gender-based Sales: Do men or women spend more during Diwali?
 
@@ -49,7 +49,8 @@ Compare Across Groups → Find variations in spending behavior.
 
 Use Visuals for Insights → Bar charts, count plots, and violin plots.
 
-4. Data Exploration & Key Findings
+# 4. Data Exploration & Key Findings
+
 1️⃣ Gender-based Sales Trends
 Approach:
 Grouped sales data by Gender and calculated total Amount.
@@ -129,7 +130,7 @@ Insight:
 Certain Product_IDs contribute significantly to total revenue.
 Promotions should highlight these high-performing products.
 
-5. Recommendations Based on Analysis
+# 5. Recommendations Based on Analysis
 Based on the insights from the analysis, here are some actionable recommendations:
 1️⃣ Target Female Consumers
 Since women spend more than men, businesses should introduce exclusive deals and personalized offers for female shoppers.
