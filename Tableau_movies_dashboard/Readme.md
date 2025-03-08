@@ -38,12 +38,17 @@ Dataset link: Kaggle - Video Game Sales: https://www.kaggle.com/datasets/gregoru
 I created an interactive Tableau dashboard to analyze North American (NA) sales trends.
 
 ## Dashboard Features
+
 ✅ Genre vs. NA Sales – Visualizes which game genres performed best in the North American market
+
 ✅ Year vs. NA Sales – Shows how video game sales evolved over the years in North America
 
 ## 🚀 Project Repository
+
 🔗 GitHub Repository: (https://github.com/syedfiza7546/Data-Analysis-Projects/edit/main/Tableau_movies_dashboard)
+
 🔗 Tableau Public Dashboard: (https://public.tableau.com/app/profile/syed.fiza/viz/Book1_17414175085960/Dashboard2?publish=yes)
 
 ## 🛠️ Tools Used
+
 Tableau – Data visualization & dashboard creation
