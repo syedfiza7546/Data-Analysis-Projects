@@ -1,4 +1,5 @@
-Aiming to categorize users based on their engagement—specifically, the number of 'like' and 'comment' actions they've performed—and then analyze their transaction behavior within these categories.
+## Aiming to categorize users based on their engagement—specifically, the number of 'like' and 'comment' actions they've performed—and 
+then analyze their transaction behavior within these categories.
 
 WITH interactions AS (
     SELECT 
