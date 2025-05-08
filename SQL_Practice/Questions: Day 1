@@ -1,3 +1,4 @@
+Day:1
 Q1: Aiming to categorize users based on their engagement, specifically, the number of 'like' and 'comment' actions they've performed and 
 then analyze their transaction behavior within these categories.
 
@@ -23,3 +24,29 @@ SELECT
     ROUND(SUM(transaction_count) * 1.0 / COUNT(*), 2) AS avg_trans_per_user
 FROM interactions
 GROUP BY interaction_group;
+
+--SELF JOINS:
+
+Q2: Given a table of product subscriptions that includes each user's subscription start and end dates, a query that returns a TRUE or FALSE value for each subscription needs 
+to be written indicating whether its date range overlaps with any other completed (i.e., non-null end date) subscription for the same user.
+
+SELECT  s1.user_id as user,
+        MAX(CASE WHEN s1.start_date BETWEEN s2.start_date AND s2.end_date
+             OR WHEN s1.end_date BETWEEN s2.start_date AND s2.end_date THEN 1 ELSE 0 END) AS overlap
+FROM subscriptions s1
+LEFT JOIN subscriptions s2
+ON s1.user_id<>s2.user_id
+GROUP BY s1.user_id;
+
+
+Q3. Write a query to identify the manager with the biggest team size. You may assume there is only one manager with the target team size.
+
+SELECT m.name as manager,
+       COUNT(DISTINCT e.id) as team_size,
+FROM employees e
+LEFT JOIN managers m
+ON e.manager_id=m.id
+GROUP BY m.name
+ORDER BY COUNT(DISTINCT e.id) DESC
+LIMIT 1;
+
