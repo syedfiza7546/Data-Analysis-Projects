@@ -1,0 +1,22 @@
+WITH interactions AS (
+    SELECT 
+        u.id AS user_id,
+        COUNT(DISTINCT t.transaction_id) AS transaction_count,
+        SUM(CASE WHEN e.action IN ('like', 'comment') THEN 1 ELSE 0 END) AS num_likes_comments
+    FROM users u
+    LEFT JOIN transactions t ON u.id = t.user_id
+    LEFT JOIN events e ON u.id = e.user_id
+    GROUP BY u.id
+)
+
+SELECT 
+    CASE 
+        WHEN num_likes_comments IS NULL OR num_likes_comments BETWEEN 0 AND 20 THEN '0-20 Interactions'
+        WHEN num_likes_comments BETWEEN 21 AND 40 THEN '21-40 Interactions'
+        ELSE '40+ Interactions'
+    END AS interaction_group,
+    COUNT(*) AS user_count,
+    SUM(transaction_count) AS total_transactions,
+    ROUND(SUM(transaction_count) * 1.0 / COUNT(*), 2) AS avg_trans_per_user
+FROM interactions
+GROUP BY interaction_group;
