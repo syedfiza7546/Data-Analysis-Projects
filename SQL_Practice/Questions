@@ -1,4 +1,4 @@
-##Aiming to categorize users based on their engagement—specifically, the number of 'like' and 'comment' actions they've performed—and 
+##Aiming to categorize users based on their engagement, specifically, the number of 'like' and 'comment' actions they've performed and 
 then analyze their transaction behavior within these categories.
 
 WITH interactions AS (
