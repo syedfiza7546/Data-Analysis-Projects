@@ -13,7 +13,7 @@ LEFT JOIN
 GROUP BY 
     ps.PageID, ps.PostalCode;
 
-2. Write a simple query to select the second highest salary in the engineering department. 
+2. Write a simple query to selects the second highest salary in the engineering department. 
 If more than one employee have the highest salary, the query should select the next highest salary.
 
 WITH highest_sal AS 
