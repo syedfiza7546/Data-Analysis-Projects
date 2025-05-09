@@ -1,0 +1,75 @@
+1. Write a query that for each page it gets the percentage of users who recommend it that are in the same postal code as the page.
+
+SELECT 
+    ps.PageID AS page,
+    ps.PostalCode,
+    100.0 * SUM(CASE WHEN ps.PostalCode = u.PostalCode THEN 1 ELSE 0 END) / COUNT(*) AS percentage
+FROM 
+    users u
+LEFT JOIN 
+    recommendations r ON u.ID = r.UserID
+LEFT JOIN 
+    page_sponsorships ps ON ps.PageID = u.PageID
+GROUP BY 
+    ps.PageID, ps.PostalCode;
+
+2. Write a simple query to select the second highest salary in the engineering department. 
+If more than one employee have the highest salary, the query should select the next highest salary.
+
+WITH highest_sal AS 
+(
+    SELECT 
+        e.id, 
+        e.first_name AS emp, 
+        e.salary,
+        d.name 
+        DENSE_RANK() OVER (PARTITION BY d.name ORDER BY e.salary DESC) AS rnk
+    FROM employee e
+    LEFT JOIN departments d 
+    ON e.department_id = d.id
+-- WHERE d.name = 'engineering'  (did for all depts)
+)
+SELECT emp, salary AS second_highest_sal 
+FROM highest_sal 
+WHERE rnk = 2;
+
+3. What is the average viewership duration (in hours) for viewers who watched the first season of "Emily in Paris" 
+compared to those who watched the second season, broken down by region?
+
+WITH avg_viewers AS (
+    SELECT 
+        region,
+        SUM(CASE WHEN season = 1 THEN View_Duration ELSE 0 END) AS s1_hrs,
+        SUM(CASE WHEN season = 2 THEN View_Duration ELSE 0 END) AS s2_hrs
+    FROM viewership
+    GROUP BY region
+),
+s1_viewers AS (
+    SELECT 
+        region,
+        COUNT(*) AS s1_v
+    FROM viewership
+    WHERE season = 1
+    GROUP BY region
+),
+s2_viewers AS (
+    SELECT 
+        region,
+        COUNT(*) AS s2_v
+    FROM viewership
+    WHERE season = 2
+    GROUP BY region
+)
+
+SELECT 
+    a.region,
+    a.s1_hrs / NULLIF(s1.s1_v, 0) AS avg_s1_views,
+    a.s2_hrs / NULLIF(s2.s2_v, 0) AS avg_s2_views
+FROM avg_viewers a
+LEFT JOIN s1_viewers s1 ON a.region = s1.region
+LEFT JOIN s2_viewers s2 ON a.region = s2.region;
+
+4. Write a SQL query to identify the names of users who placed less than 3 orders or ordered less than $500 worth of products.
+
+
+
