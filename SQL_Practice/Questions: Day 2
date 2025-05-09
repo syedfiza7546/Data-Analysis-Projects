@@ -72,4 +72,35 @@ LEFT JOIN s2_viewers s2 ON a.region = s2.region;
 4. Write a SQL query to identify the names of users who placed less than 3 orders or ordered less than $500 worth of products.
 
 
+SELECT u.name as users,
+       count(t.id) as num_transactions,
+       sum(t.quantity*p.price) as total_order_amount
+FROM transactions t
+LEFT JOIN products p
+       ON t.product_id =p.id
+LEFT JOIN users u
+       ON u.id=t.user_id
+GROUP BY u.name
+HAVING count(t.id) <3 OR
+       sum(t.quantity*p.price) <500
+  
+ 
+5. Write a query to get the top 3 highest employees salaries by department. If the department contains less than 3 employees, the top 2 or the top 1 highest salaries should be 
+listed. O/p should contain: full name, department name, the salary. Sort by dept (Asc) and salary (desc)
 
+
+WITH dept_rank AS (SELECT d.id,
+       d.name as Department_name,
+       e.first_name,
+       e.last_name,
+       e.salary,
+       concat(e.first_name, ' ', e.last_name) as employee_name,
+       RANK() OVER(PARTITION BY d.name ORDER BY e.salary DESC) as rnk
+FROM department d
+LEFT JOIN employees e
+ON d.id=e.department_id)
+
+SELECT Department_name, employee_name, salary
+FROM dept_rank
+WHERE rnk IN (1,2,3)       
+ORDER BY Department_name ASC, salary DESC;
