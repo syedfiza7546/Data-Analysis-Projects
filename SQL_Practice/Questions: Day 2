@@ -66,8 +66,10 @@ SELECT
     a.s1_hrs / NULLIF(s1.s1_v, 0) AS avg_s1_views,
     a.s2_hrs / NULLIF(s2.s2_v, 0) AS avg_s2_views
 FROM avg_viewers a
-LEFT JOIN s1_viewers s1 ON a.region = s1.region
-LEFT JOIN s2_viewers s2 ON a.region = s2.region;
+LEFT JOIN s1_viewers s1 
+       ON a.region = s1.region
+LEFT JOIN s2_viewers s2 
+       ON a.region = s2.region;
 
 4. Write a SQL query to identify the names of users who placed less than 3 orders or ordered less than $500 worth of products.
 
