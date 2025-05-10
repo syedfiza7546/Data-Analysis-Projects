@@ -8,3 +8,76 @@ Write a SQL query to identify the top 5 seller-buyer pairs with the highest numb
 Important constraint:
 Exclude any seller who has ever appeared as a buyer, and any buyer who has ever appeared as a seller.
 
+WITH Transactions AS (
+    SELECT 
+        transaction_id, 
+        customer_id AS seller_id, 
+        amount, 
+        tran_date,
+        LEAD(customer_id) OVER (ORDER BY transaction_id) AS buyer_id
+    FROM transactions
+),
+combinations AS (
+    SELECT 
+        seller_id, 
+        buyer_id, 
+        COUNT(*) AS no_of_transactions
+    FROM Transactions
+    WHERE transaction_id % 2 = 1
+    GROUP BY seller_id, buyer_id
+),
+duplicates AS (
+    SELECT seller_id AS duplicate FROM combinations
+    INTERSECT
+    SELECT buyer_id FROM combinations
+)
+
+SELECT * 
+FROM combinations
+WHERE seller_id NOT IN (SELECT duplicate FROM duplicates)
+  AND buyer_id NOT IN (SELECT duplicate FROM duplicates)
+ORDER BY no_of_transactions DESC
+LIMIT 5;
+
+
+2. Top 3 products by sales, top 3 employees by salaries, within cat/dept
+
+USE row_number() OVER (PARTITION BY dept ORDER BY salary DESC) [If ties doesn't matter, otherwise use dense_rank]
+DENSE_RANK() OVER (PARTITION BY dept ORDER BY salary DESC)
+
+In case of sales: SELECT category, prod_id, SUM(sales) as sales
+                   FROM orders
+                   GROUP BY 1,2
+
+3. YoY Growth/products with sales more than previous months sales:
+
+WITH sales_made_each_year AS (
+    SELECT 
+        category, 
+        YEAR(order_date) AS year_order, 
+        SUM(sales) AS sales
+    FROM orders
+    GROUP BY category, YEAR(order_date)
+),
+
+previous_year AS (
+    SELECT 
+        *, 
+        LAG(sales, 1, 0) OVER (PARTITION BY category ORDER BY year_order) AS previous_year_sales
+    FROM sales_made_each_year
+)
+
+SELECT 
+    category, 
+    year_order, 
+    sales, 
+    previous_year_sales,
+    CASE 
+        WHEN previous_year_sales = 0 THEN NULL
+        ELSE ROUND((sales - previous_year_sales) * 100.0 / previous_year_sales, 2)
+    END AS yoy
+FROM previous_year;
+
+
+That's all for today folks! 
+Did some heavy lifting!
