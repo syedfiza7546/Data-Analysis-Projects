@@ -1,0 +1,10 @@
+You are given a transactions table that records buyer-seller interactions. The table contains the following columns: transaction_id, customer_id, amount, and date.
+Each successful transaction is represented by two rows:
+The first row (with a lower transaction_id) records the seller's customer ID.
+The second row (with a higher transaction_id) records the buyer's customer ID.
+Both rows share the same amount and date.
+
+Write a SQL query to identify the top 5 seller-buyer pairs with the highest number of transactions between them.
+Important constraint:
+Exclude any seller who has ever appeared as a buyer, and any buyer who has ever appeared as a seller.
+
