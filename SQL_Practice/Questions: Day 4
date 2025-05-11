@@ -1,0 +1,29 @@
+Running / cumulative sales year wise / rolling and months sales
+
+WITH sum_sales AS (SELECT year(order_date) AS year_order, SUM(sales) AS sales
+                    FROM orders
+                    GROUP BY category, year(order_date)
+                    ORDER BY category, year(order_date))
+
+
+SELECT *, 
+      SUM(sales) OVER (ORDER BY year_order, month_order_date ROWS BETWEEN 3 PRECEEDING AND 1 PRECEEDING) AS cumulative_sales
+FROM sum_sales
+
+
+Pivoting/ convert rows into column--year wise each category sales
+
+SELECT 
+  YEAR(order_date) AS order_year,
+  MONTH(order_date) AS order_month,
+  SUM(CASE WHEN category = 'furniture' THEN sales ELSE 0 END) AS furniture_sales,
+  SUM(CASE WHEN category = 'office_supplies' THEN sales ELSE 0 END) AS office_supplies_sales,
+  SUM(CASE WHEN category = 'technology' THEN sales ELSE 0 END) AS technology_sales
+FROM orders 
+GROUP BY 
+  YEAR(order_date), 
+  MONTH(order_date)
+ORDER BY 
+  YEAR(order_date), 
+  MONTH(order_date);
+
