@@ -1,4 +1,4 @@
-Running / cumulative sales year wise / rolling and months sales
+1. Running / cumulative sales year wise / rolling and months sales
 
 WITH sum_sales AS (SELECT year(order_date) AS year_order, SUM(sales) AS sales
                     FROM orders
@@ -11,7 +11,7 @@ SELECT *,
 FROM sum_sales
 
 
-Pivoting/ convert rows into column--year wise each category sales
+2. Pivoting/ convert rows into column--year wise each category sales
 
 SELECT 
   YEAR(order_date) AS order_year,
@@ -26,4 +26,25 @@ GROUP BY
 ORDER BY 
   YEAR(order_date), 
   MONTH(order_date);
+
+3. First Name , Middle Name and Last Name of a Customer/Employees
+
+  WITH name AS (SELECT *
+          , len(customer_name)-len(replace(customer_name, ' ','')) as no_of_spaces
+          , CHARINDEX (' ', customer_name) as first_space_position
+          , CHARINDEX (' ', customer_name, CHARINDEX (' ', customer_name)+1) as second_space_position
+  FROM customers)
+  
+  SELECT *,
+          CASE WHEN no_of_spaces=0 THEN customer_name
+          ELSE SUBSTRING(customer_name, 1, first_space_position-1) END AS first_name
+          CASE WHEN no_of_spaces<=1 THEN null 
+          ELSE SUBSTRING (customer_name, 1, first_space_position+1,second_space_position-first_space_position-1) END AS middle_name
+          CASE WHEN no_of_spaces<=1 THEN null 
+          CASE WHEN SUBSTRING (customer_name, 1, first_space_position+1,len(customer_name)-first_space_position) 
+          WHEN SUBSTRING (customer_name, 1, first_space_position+1,len(customer_name)-first_space_position)
+          WHEN SUBSTRING (customer_name, 1, second_space_position+1,len(customer_name)-second_space_position)
+          END AS last_name
+          
+  FROM name 
 
