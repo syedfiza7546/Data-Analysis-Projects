@@ -1,0 +1,112 @@
+https://www.sql-practice.com/
+1. DELETE DUPLICATES
+
+SELECT employee_name, COUNT(employee_name) AS COUNT 
+FROM employee GROUP BY (employee_name)
+HAVING COUNT(employee_name)>1
+
+WITH delDup AS
+        (
+        SELECT employee_id, employee_name,
+        ROW_NUMBER() OVER (PARTITION BY employee_name ORDER BY employee_id ASC) AS row_num
+        FROM employee
+        )
+
+DELETE FROM delDup
+WHERE row_num>1
+
+2. RECYCLABLE AND LOW FAT PRODUCTS: LEETCODE
+Write a solution to find the IDs of products that are both low-fat and recyclable. Return the result table in any order.
+
+SELECT product_id
+FROM products 
+WHERE low_fats ='Y'
+AND recyclable='Y'
+
+3. Find the names of customers that are not referred by the customer with ID 2.
+
+SELECT name
+FROM customer 
+WHERE referre_id!=2
+OR referre_id IS NULL
+
+4. CUSTOMERS WHO VISITED THE MALL BUT DID NOT MAKE ANY TRANSACTIONS
+
+SELECT customer_id, COUNT(*) AS count_no_trans
+FROM visits v
+LEFT JOIN transactions t
+ON v.visit_id=t.visit_id
+WHERE transaction_id IS NULL
+GROUP BY customer_id
+
+5. WRITE A SOLUTION TO FIND ALL DATES' id WITH HIGHER TEMPERATURES COMPARED TO ITS PREVIOUS DATES (YESTERDAY)
+
+WITH high_temp AS (
+    SELECT *,
+        LAG(temperature, 1) OVER (ORDER BY recordDate) AS prev_temp,
+        LAG(recordDate, 1) OVER (ORDER BY recordDate) AS prev_date
+    FROM weather
+)
+SELECT id 
+FROM high_temp
+WHERE 
+    DATEDIFF(day, prev_date, recordDate) = 1
+    AND temperature > prev_temp;
+
+
+OR
+
+WITH high_temp AS (
+    SELECT *,
+        LAG(temperature, 1) OVER (ORDER BY recordDate) AS prev_temp,
+        LAG(recordDate, 1) OVER (ORDER BY recordDate) AS prev_date,
+        CASE 
+            WHEN DATEDIFF(day, LAG(recordDate, 1) OVER (ORDER BY recordDate), recordDate) = 1
+                 AND temperature > LAG(temperature, 1) OVER (ORDER BY recordDate)
+            THEN id
+            ELSE NULL
+        END AS prev_day_temp_com
+    FROM weather
+)
+SELECT id
+FROM high_temp
+WHERE prev_day_temp_com IS NOT NULL;
+
+
+AVERAGE TIME OF PROCESS PER MACHINE
+There is a factory website that has several machines, each running the same number of processors. Write a solution to find the average time each machine takes to complete a process. 
+The time to complete a process is the end timestamp minus the start timestamp. The average time is calculated by total time to complete every process on the machine divided by the number of processes that were run. 
+The resulting table should have the machine ID along with the average time as processing time which should be rounded to 3 decimal places.
+
+You have:
+A table logging start and end timestamps of processes on multiple machines.
+Each process has:
+A machine_id
+A process_id
+A timestamp and an activity type (start or end)
+
+You need to:
+Calculate the average processing time per machine.
+Processing time = end timestamp - start timestamp for each process.
+Round the result to 3 decimal places.
+
+WITH process_times AS (
+    SELECT
+        machine_id,
+        process_id,
+        MAX(CASE WHEN activity = 'end' THEN timestamp END) AS end_time,
+        MAX(CASE WHEN activity = 'start' THEN timestamp END) AS start_time
+    FROM activity_log
+    GROUP BY machine_id, process_id
+),
+durations AS (
+    SELECT
+        machine_id,
+        EXTRACT(EPOCH FROM (end_time - start_time)) AS duration_seconds
+    FROM process_times
+)
+SELECT
+    machine_id,
+    ROUND(AVG(duration_seconds), 3) AS processing_time
+FROM durations
+GROUP BY machine_id;
