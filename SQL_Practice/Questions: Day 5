@@ -74,7 +74,7 @@ WHERE prev_day_temp_com IS NOT NULL;
 
 
 AVERAGE TIME OF PROCESS PER MACHINE
-There is a factory website that has several machines, each running the same number of processors. Write a solution to find the average time each machine takes to complete a process. 
+6. There is a factory website that has several machines, each running the same number of processors. Write a solution to find the average time each machine takes to complete a process. 
 The time to complete a process is the end timestamp minus the start timestamp. The average time is calculated by total time to complete every process on the machine divided by the number of processes that were run. 
 The resulting table should have the machine ID along with the average time as processing time which should be rounded to 3 decimal places.
 
