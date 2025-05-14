@@ -1,4 +1,4 @@
-Write a solution to find the number of times each student attended each exam.
+1. Write a solution to find the number of times each student attended each exam.
 
 SELECT s.student_id, s.student_name, su.subject_name, COUNT(e.student_id) AS attended_exams
 FROM students s
@@ -10,7 +10,7 @@ GROUP BY s.student_id, s.student_name, su.subject_name
 ORDER BY s.student_name, su.subject_name
 
 
-Managers with at least 5 direct reports
+2. Managers with at least 5 direct reports
 
 SELECT a1.name 
 FROM employees as a1
@@ -18,4 +18,34 @@ JOIN employee a2
 ON a1.id=a2.manager_id
 GROUP BY a2.manager_id
 HAVING COUNT(*)>=5
+
+3. Get the highest spending customer from each city
+
+WITH Total_PAY_CUS AS 
+    (SELECT customer, city,
+           SUM(amount) AS total_amt 
+    FROM uber_rides 
+    GROUP BY customer, city),
+
+
+Ranked_amt AS 
+ (SELECT *,  ROW_NUMBER() OVER (PARTITION BY city ORDER BY                                                                                                                    total_amt DESC) AS rn
+    FROM Total_PAY_CUS)
+ 
+SELECT customer, rn, city 
+FROM Ranked_amt 
+WHERE rn = 1;
+
+4. Identify customers who took same driver 3 or more times consecutively
+
+WITH same_driver AS (
+    SELECT *,
+           LAG(driver, 1) OVER (PARTITION BY customer ORDER BY date) AS last_driver1,
+           LAG(driver, 2) OVER (PARTITION BY customer ORDER BY date) AS last_driver2
+    FROM uber_rides
+)
+SELECT DISTINCT customer
+FROM same_driver
+WHERE driver = last_driver1
+  AND driver = last_driver2;
 
