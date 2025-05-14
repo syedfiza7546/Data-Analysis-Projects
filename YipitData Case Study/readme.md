@@ -1,6 +1,6 @@
 ## 📊 YipitData Case Study
 
-The task was designed to simulate real-world responsibilities involving data cleaning, transformation, and analysis.
+This project analyzes weekly Netflix Top 10 data (scraped by YipitData) to answer key business questions using Excel/Sheets and Power BI. The focus is on the 'Films (Non-English)' category, estimating user viewership, identifying top-performing titles, and working with IMDb and runtime datasets.
 
 ### 🔍 Objective
 
@@ -29,21 +29,21 @@ Analyze Netflix Top 10 weekly viewership data to identify trends and generate us
 
 ### 🔢 Google Sheets / Excel Formulas
 
-// Estimated Users (per row)
+# Estimated Users (per row)
 =IFERROR(IF([Runtime (min)]=0, "", [Weekly Hours Viewed]/([Runtime (min)]/60)), 0)
 
-// Runtime (hrs)
+# Runtime (hrs)
 =ROUND([Runtime (min)] / 60)
 
-// Include Week Flag
+# Include Week Flag
 =IF([Week]=DATE(2022,5,22), "No", "Yes")
 
-// SUMIFS to get total Estimated Users (excluding nulls & outage week)
+# SUMIFS to get total Estimated Users (excluding nulls & outage week)
 =SUMIFS([Estimated Users Range], [Include Week Range], "Yes", [Estimated Users Range], "<>")
 
 ### 🧮 Power BI DAX Measures
 
-// Estimated Users
+# Estimated Users
 Estimated Users = 
 DIVIDE(
     SUM('NFLX Top 10'[weekly_hours_viewed]),
@@ -51,7 +51,7 @@ DIVIDE(
     0
 )
 
-// Filtered Estimated Users (excluding week of May 22 and nulls)
+# Filtered Estimated Users (excluding week of May 22 and nulls)
 Filtered Estimated Users = 
 CALCULATE(
     [Estimated Users],
@@ -59,15 +59,15 @@ CALCULATE(
     NOT(ISBLANK('NFLX Top 10'[weekly_hours_viewed]))
 )
 
-// Max Cumulative Weeks in Top 10
+# Max Cumulative Weeks in Top 10
 Max Weeks in Top 10 = 
 MAX('NFLX Top 10'[cumulative_weeks_in_top_10])
 
-// Avg IMDb Rating by Show Title
+# Avg IMDb Rating by Show Title
 Avg Rating = 
 AVERAGE('IMDb Ratings'[rating])
 
-// Avg Rating by Category (with title match)
+# Avg Rating by Category (with title match)
 Avg Rating by Category = 
 CALCULATE(
     AVERAGE('IMDb Ratings'[rating]),
@@ -78,7 +78,7 @@ CALCULATE(
     NOT(ISBLANK('IMDb Ratings'[rating]))
 )
 
-// Dynamic Card Title for Top Show (by category)
+# Dynamic Card Title for Top Show (by category)
 Top Non-English Film = 
 CALCULATE(
     SELECTEDVALUE('NFLX Top 10'[show_title]),
