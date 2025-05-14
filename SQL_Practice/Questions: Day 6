@@ -8,3 +8,14 @@ ON s.student_id=e.student_id
 AND su.subject_name = e.subject_name
 GROUP BY s.student_id, s.student_name, su.subject_name
 ORDER BY s.student_name, su.subject_name
+
+
+Managers with at least 5 direct reports
+
+SELECT a1.name 
+FROM employees as a1
+JOIN employee a2
+ON a1.id=a2.manager_id
+GROUP BY a2.manager_id
+HAVING COUNT(*)>=5
+
