@@ -49,3 +49,20 @@ FROM same_driver
 WHERE driver = last_driver1
   AND driver = last_driver2;
 
+Find drivers earning below 10k, 10-20K, 20-30K, 30K+
+
+WITH dsalary AS 
+(SELECT driver, 
+SUM (amount) as salary
+FROM uber_rides
+GROUP BY driver) 
+
+SELECT driver, 
+CASE
+   WHEN salary <=10000 THEN ‘0 - 10k’
+   WHEN salary > 10000 AND  salary <= 20000 THEN  '10 - 20k’
+   WHEN salary > 20000 AND  salary <= 30000 THEN  '20 - 30k’
+    ELSE '30k+'
+    END AS salary_range
+
+FROM dsalary 
