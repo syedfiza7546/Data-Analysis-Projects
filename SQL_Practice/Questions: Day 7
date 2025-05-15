@@ -1,0 +1,15 @@
+Confirmation Rate
+The confirmation rate of a user is the number of 'confirmed' messages divided by the total number of requested confirmation messages. The confirmation rate of a user 
+that did not receive any confirmation messages is 0. Round th confirmation rate to 2 decimal places
+
+SELECT user_id, SUM(CASE WHEN action='confirmed' THEN 1 ELSE 0 END)/ COUNT(*) AS confirmation_rate
+FROM signups s
+LEFT JOIN confirmations c
+ON s.user_id =c.user_id
+GROUP BY user_id
+ORDER BY confirmation_rate
+
+ Write a solution to report movies with an odd numbered ID and a description that is not "boring".
+
+Return ordered by rating.
+
