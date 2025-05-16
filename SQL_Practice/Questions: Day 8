@@ -1,0 +1,44 @@
+Identify Customers Who Ordered the Same Item 3 or More Times Consecutively			
+
+WITH consecutive_orders AS (
+SELECT orderID, 
+customer, 
+orderItem, 
+date, 
+LAG(orderItem, 1) OVER (PARTITION BY customer ORDER BY order_date) AS prev_orderItem_1,
+LAG(orderItem, 2) OVER (PARTITION BY customer ORDER BY order_date) AS prev_orderItem_2
+FROM zomato_order)
+
+SELECT DISTINCT customer
+FROM consecutive_orders
+WHERE orderItem=prev_orderItem_1
+AND orderItem=prev_orderItem_2
+
+			
+Generate list of items ordered in last 5 days for each customer						
+
+WITH last_5_orders AS (
+    SELECT customer, order_item, date
+    FROM zomato_order
+    WHERE DATEDIFF(DAY, date, GETDATE()) <= 5
+)
+SELECT customer, order_item
+FROM last_5_orders
+ORDER BY customer;
+
+
+
+OR 
+
+WITH last_5_orders AS (
+    SELECT 
+        customer, 
+        GROUP_CONCAT(order_item ORDER BY date) AS all_orders, 
+        MAX(date) AS last_date 
+    FROM zomato_order
+    WHERE DATEDIFF(DAY, date, GETDATE()) <= 5
+    GROUP BY customer
+)
+SELECT customer, all_orders, last_date
+FROM last_5_orders
+ORDER BY customer;
