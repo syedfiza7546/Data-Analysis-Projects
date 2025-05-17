@@ -1,0 +1,19 @@
+Q3 Each city, get the highest spending customer on 1st of every month
+
+WITH Summed_amt AS (
+    SELECT customer, city, 
+        DAY(order_date) AS or_day,
+        SUM(amount) AS total_amt
+    FROM zomato_order
+    WHERE DAY(order_date) = 1
+    GROUP BY customer, city, DAY(order_date)),
+
+ranked_amt AS (
+    SELECT 
+        *, 
+        RANK() OVER (PARTITION BY city ORDER BY total_amt DESC) AS RN
+    FROM Summed_amt)
+
+SELECT *
+FROM ranked_amt
+WHERE RN = 1;
