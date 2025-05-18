@@ -1,0 +1,106 @@
+1. What is the maximum number of women we can include such that their cumulative weight does not exceed 1000?
+Solution 1:
+
+WITH women_wgt AS (
+    SELECT 
+        *,
+        SUM(weight) OVER (ORDER BY weight ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cum_wgt,
+        COUNT(*) OVER (ORDER BY weight ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS ct_women
+    FROM lift
+    WHERE gender = 'F'
+)
+SELECT 
+    COUNT(*) AS max_women, 
+    MAX(ct_women) AS max_women2
+FROM 
+    women_wgt
+WHERE 
+    cum_wgt <= 1000;
+
+
+Solution 2:
+
+
+WITH women_data AS (
+    SELECT 
+        weight,
+        SUM(weight) OVER (ORDER BY weight) AS cum_wgt,
+        ROW_NUMBER() OVER (ORDER BY weight) AS ct_women
+    FROM lift
+    WHERE gender = 'F'
+)
+SELECT 
+    MAX(ct_women) AS max_women
+FROM 
+    women_data
+WHERE 
+    cum_wgt <= 1000;
+2. What is the average weight for each age group (30-40, 40-50, etc.)?
+
+
+WITH age_grp AS (
+    SELECT *, 
+        CASE 
+            WHEN age >= 30 AND age < 40 THEN '30-40'              
+            WHEN age >= 40 AND age < 50 THEN '40-50'
+            WHEN age >= 50 AND age < 60 THEN '50-60'
+            WHEN age >= 60 AND age < 70 THEN '60-70'
+            ELSE 'NA'
+        END AS age_bracket	
+    FROM lift
+)
+SELECT 
+    age_bracket, 
+    AVG(weight) AS avg_wgt
+FROM 
+    age_grp 
+GROUP BY 
+    age_bracket;
+3. Identify the age groups where the average weight of women is greater than that of men.
+
+
+WITH age_gender_avg AS (
+    SELECT 
+        CASE 
+            WHEN age >= 30 AND age < 40 THEN '30-40'
+            WHEN age >= 40 AND age < 50 THEN '40-50'
+            WHEN age >= 50 AND age < 60 THEN '50-60'
+            WHEN age >= 60 AND age < 70 THEN '60-70'
+            ELSE 'NA'
+        END AS age_bracket,
+        gender,
+        AVG(weight) AS avg_wgt
+    FROM lift
+    GROUP BY age_bracket, gender
+),
+pivoted AS (
+    SELECT 
+        age_bracket,
+        MAX(CASE WHEN gender = 'F' THEN avg_wgt END) AS female_avg,
+        MAX(CASE WHEN gender = 'M' THEN avg_wgt END) AS male_avg
+    FROM age_gender_avg
+    GROUP BY age_bracket
+)
+SELECT age_bracket, female_avg, male_avg
+FROM pivoted
+WHERE female_avg > male_avg;
+4. What is each person’s rank by weight within their gender?
+
+
+WITH Wgt_ranking AS (
+    SELECT 
+        name, 
+        weight, 
+        gender,
+        ROW_NUMBER() OVER (PARTITION BY gender ORDER BY weight DESC) AS rn
+    FROM lift
+)
+SELECT 
+    name, 
+    gender, 
+    rn, 
+    weight
+FROM 
+    Wgt_ranking
+ORDER BY 
+    rn, gender;
