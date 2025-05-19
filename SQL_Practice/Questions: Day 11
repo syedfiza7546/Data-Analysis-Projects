@@ -1,0 +1,53 @@
+Q1: Write a SQL query to calculate a running average of daily temperature within each month, ordered by date.
+
+WITH rolling_avg AS (
+  SELECT date, temp,
+    AVG(temp) OVER (
+      PARTITION BY MONTH(date) 
+      ORDER BY date ASC 
+      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS Rolling_total
+  FROM temperature
+)
+SELECT date, temp, Rolling_total
+FROM rolling_avg;
+
+
+Q2: Write a SQL query to return the dates on which a new highest temperature was recorded, compared to all previous days.
+
+WITH ht AS (
+  SELECT 
+    MAX(temp) OVER (
+      ORDER BY date 
+      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS highest_temp, 
+    date, 
+    temp
+  FROM temperature
+)
+SELECT date, temp
+FROM ht
+WHERE highest_temp = temp;
+
+Q3: Write a SQL query to return the daily temperature, its cumulative average over time, and the average temperature for the month. 
+Also include the month number in the result.
+
+WITH daily_avg AS (
+  SELECT 
+    date, 
+    temp, 
+    AVG(temp) OVER (
+      ORDER BY date 
+      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS daily_rolling_total,
+    AVG(temp) OVER (PARTITION BY MONTH(date)) AS monthly_avg,
+    MONTH(date) AS months
+  FROM temperature
+)
+SELECT 
+  months, 
+  temp, 
+  daily_rolling_total, 
+  monthly_avg
+FROM daily_avg;
+
