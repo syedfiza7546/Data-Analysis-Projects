@@ -1,4 +1,4 @@
-## 📊 YipitData Case Study
+## 📊 Case Study
 
 This project analyzes weekly Netflix Top 10 data (scraped by YipitData) to answer key business questions using Excel/Sheets and Power BI. The focus is on the 'Films (Non-English)' category, estimating user viewership, identifying top-performing titles, and working with IMDb and runtime datasets.
 
